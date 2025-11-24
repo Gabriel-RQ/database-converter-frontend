@@ -1,1 +1,26 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@theme {
+  --color-background: #f8f9fa;
+  --color-primary: #0f4c5c;
+  --color-secondary: #2ec4b6;
+  --color-accent: #ff9f1c;
+  --color-text: #343a40;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  display: grid;
+  font-family: "Lato", sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  grid-template-rows: auto 1fr auto;
+  height: 100dvh;
+  padding: 40px 80px;
+  width: 100dvw;
+}
+
+@utility title {
+  @apply text-2xl text-primary font-bold;
+}
