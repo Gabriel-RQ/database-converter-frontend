@@ -24,3 +24,21 @@ body {
 @utility title {
   @apply text-2xl text-primary font-bold;
 }
+
+@utility base-border {
+  border: solid 1px #e6ebef;
+}
+
+@utility base-section {
+  @apply size-full flex items-center justify-center;
+}
+
+@utility alt-background {
+  background-color: #fdfdfe;
+  @apply base-border;
+}
+
+@utility card {
+  box-shadow: color-mix(in srgb, var(--color-primary), transparent 6%);
+  @apply alt-background rounded-md p-6;
+}
