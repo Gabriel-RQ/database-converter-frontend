@@ -15,13 +15,13 @@
 </script>
 
 <div
-  class="p-2 inline-flex items-center justify-center gap-1.5 alt-background rounded-full {className}"
+  class="w-24 h-8 p-2 inline-flex items-center justify-center gap-1.5 alt-background rounded-full overflow-hidden {className}"
 >
   <div
-    class="rounded-full size-4"
+    class="rounded-full size-4 min-w-4"
     class:bg-text={status === "pending"}
     class:bg-accent={status === "processing"}
     class:bg-secondary={status === "done"}
   ></div>
-  <p class="text-xs font-light">{description}</p>
+  <p class="text-xs font-light truncate">{description}</p>
 </div>
