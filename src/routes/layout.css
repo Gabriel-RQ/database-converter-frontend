@@ -2,6 +2,7 @@
 
 @theme {
   --color-background: #f8f9fa;
+  --color-alt-background: #fdfdfe;
   --color-primary: #0f4c5c;
   --color-secondary: #2ec4b6;
   --color-accent: #ff9f1c;
@@ -36,11 +37,11 @@ body {
 }
 
 @utility alt-background {
-  background-color: #fdfdfe;
-  @apply base-border;
+  @apply base-border bg-alt-background;
 }
 
 @utility card {
-  box-shadow: color-mix(in srgb, var(--color-primary), transparent 6%);
+  box-shadow: color-mix(in srgb, var(--color-primary), transparent 94%) 0 4px
+    4px 0;
   @apply alt-background rounded-md p-6;
 }
