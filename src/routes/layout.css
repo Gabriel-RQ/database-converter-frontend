@@ -6,6 +6,8 @@
   --color-secondary: #2ec4b6;
   --color-accent: #ff9f1c;
   --color-text: #343a40;
+  --color-text-dimmed: color-mix(in oklab, #343a40 50%, transparent);
+  --font-inconsolata: "Inconsolata", monospace;
 }
 
 body {
