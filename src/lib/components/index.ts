@@ -5,3 +5,5 @@ export { default as Input } from "./inputs/Input.svelte";
 
 export { default as ProceedButton } from "./buttons/ProceedButton.svelte";
 export { default as TextButton } from "./buttons/TextButton.svelte";
+
+export { default as StatusBadge } from "./info/StatusBadge.svelte";
