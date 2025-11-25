@@ -1,4 +1,5 @@
 <script>
+  import { goto } from "$app/navigation";
   import { Input, ProceedButton } from "$lib/components";
 </script>
 
@@ -12,7 +13,9 @@
 
     <span class="h-16 gap-4 flex">
       <Input placeholder="Identificador" />
-      <ProceedButton />
+      <ProceedButton
+        onclick={() => goto("/migration/89c4ab25-f743-4803-bdae-f7b2511adf2a")}
+      />
     </span>
   </div>
 </section>
