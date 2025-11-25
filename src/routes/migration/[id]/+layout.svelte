@@ -3,6 +3,12 @@
   import { StatusBadge, TextButton } from "$lib/components";
   import { ChevronLeftIcon } from "@lucide/svelte";
   import type { LayoutProps } from "./$types";
+  import { setContext } from "svelte";
+  import { writable, type Writable } from "svelte/store";
+
+  let migrationStatus: Writable<EMigrationStatus> = writable("pending");
+
+  setContext("migration:status", () => migrationStatus);
 
   let { children, data }: LayoutProps = $props();
 </script>
@@ -16,7 +22,7 @@
       </TextButton>
       <h2 class="title">Migração Teste ({data.id})</h2>
 
-      <StatusBadge status="pending" class="ml-auto" />
+      <StatusBadge status={$migrationStatus} class="ml-auto" />
     </span>
 
     {@render children()}
