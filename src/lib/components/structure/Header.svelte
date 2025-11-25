@@ -9,7 +9,11 @@
     <h1 class="text-3xl font-bold">Database Converter</h1>
   </div>
 
-  <a href="https://github.com/Gabriel-RQ/database-converter-tool">
+  <a
+    href="https://github.com/Gabriel-RQ/database-converter-tool"
+    target="_blank"
+    rel="noreferrer"
+  >
     <img src={github} alt="Símbolo do GitHub" />
   </a>
 </header>

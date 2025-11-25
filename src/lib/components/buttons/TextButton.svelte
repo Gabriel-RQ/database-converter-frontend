@@ -9,7 +9,7 @@
 </script>
 
 <button
-  class="text-primary text-xl inline-flex items-center cursor-pointer hover:text-secondary transition-colors duration-200 outline-primary"
+  class="text-primary text-xl inline-flex items-center cursor-pointer hover:text-secondary focus:text-secondary transition-colors duration-200 outline-primary"
   {...restProps}
 >
   {@render children()}

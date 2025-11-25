@@ -1,21 +1,22 @@
 <script lang="ts">
   type StatusBadgeProps = {
-    status: "pending" | "processing" | "done";
+    status: EMigrationStatus;
     class?: string;
   };
 
   let { status, class: className }: StatusBadgeProps = $props();
 
-  let description =
+  let description = $derived(
     status === "pending"
       ? "Pendente"
       : status === "processing"
         ? "Executando"
-        : "Finalizado";
+        : "Finalizado"
+  );
 </script>
 
 <div
-  class="w-24 h-8 p-2 inline-flex items-center justify-center gap-1.5 alt-background rounded-full overflow-hidden {className}"
+  class="w-fit min-w-24 h-8 p-2 inline-flex items-center justify-center gap-1.5 alt-background rounded-full overflow-hidden {className}"
 >
   <div
     class="rounded-full size-4 min-w-4"
