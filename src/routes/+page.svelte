@@ -1,6 +1,8 @@
 <script>
   import { goto } from "$app/navigation";
   import { Input, ProceedButton } from "$lib/components";
+
+  let name = $state("");
 </script>
 
 <section class="base-section">
@@ -12,9 +14,16 @@
     </p>
 
     <span class="h-16 gap-4 flex">
-      <Input placeholder="Identificador" />
+      <Input
+        placeholder="Identificador"
+        name="identifier"
+        minlength={1}
+        bind:value={name}
+      />
       <ProceedButton
-        onclick={() => goto("/migration/89c4ab25-f743-4803-bdae-f7b2511adf2a")}
+        type="submit"
+        onclick={() => goto(`/migration?identifier=${name}`)}
+        disabled={name.length === 0}
       />
     </span>
   </div>

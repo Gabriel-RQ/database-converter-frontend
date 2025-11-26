@@ -1,53 +1,65 @@
 <script lang="ts">
-  import {
-    ArrowRightIcon,
-    FileCodeIcon,
-    ChevronRightIcon,
-  } from "@lucide/svelte";
-  import { Input, TextButton } from "$lib/components";
-  import type { PageProps } from "./$types";
-  import SelectInput from "$lib/components/inputs/SelectInput.svelte";
-  import { goto } from "$app/navigation";
   import { page } from "$app/state";
+  import { MigrationProgressBar, ProgressLog } from "$lib/components";
+  import { CheckIcon, LoaderCircleIcon } from "@lucide/svelte";
+  import { getContext } from "svelte";
+  import type { Writable } from "svelte/store";
 
-  const sgbds = [
-    { value: "postgres", label: "Postgres" },
-    { value: "firebird", label: "Firebird" },
-  ];
+  let migrationStatus =
+    getContext<() => Writable<{ status: EMigrationStatus; id?: string }>>(
+      "migration:status"
+    )();
 
-  let { data }: PageProps = $props();
+  migrationStatus.update((v) => {
+    v.id = page.params.id;
+    return v;
+  });
+
+  setTimeout(
+    () =>
+      migrationStatus.update((v) => {
+        v.status = "processing";
+        return v;
+      }),
+    1000
+  );
+  setTimeout(
+    () =>
+      migrationStatus.update((v) => {
+        v.status = "done";
+        return v;
+      }),
+    5000
+  );
 </script>
 
-<div class="flex justify-between items-center gap-8">
-  <div class="card space-y-3 flex-1">
-    <h3 class="title font-normal">Base de dados origem</h3>
-    <SelectInput class="h-12" label="SGBD" items={sgbds} />
-    <Input class="h-12" label="Nome/identificador da base de dados" />
-    <Input class="h-12" label="Senha da base de dados" />
-    <Input class="h-12" label="Usuário da base de dados" />
-    <Input class="h-12" label="Porta da base de dados" />
+<div class="card w-4/5 mx-auto">
+  <div
+    class="text-center space-y-3 mb-14"
+    class:text-accent={$migrationStatus.status !== "done"}
+    class:text-secondary={$migrationStatus.status === "done"}
+  >
+    {#if $migrationStatus.status !== "done"}
+      <LoaderCircleIcon
+        class="m-auto animate-spin size-22 stroke-1 transition-all"
+      />
+      <h3 class="font-bold text-xl transition-all">Migração em andamento</h3>
+      <p class="text-text">Você pode acompanhar o progresso abaixo</p>
+    {:else}
+      <CheckIcon class="m-auto size-22 stroke-1 transition-all" />
+      <h3 class="font-bold text-xl transition-all">Migração finalizada</h3>
+      <p class="text-text">Você pode conferir os <i>logs</i> abaixo</p>
+    {/if}
   </div>
 
-  <ArrowRightIcon class="stroke-primary size-16" />
+  <MigrationProgressBar class="mb-8" />
 
-  <div class="card space-y-3 flex-1">
-    <h3 class="title font-normal">Base de dados destino</h3>
-    <SelectInput class="h-12" label="SGBD" items={sgbds} />
-    <Input class="h-12" label="Nome/identificador da base de dados" />
-    <Input class="h-12" label="Senha da base de dados" />
-    <Input class="h-12" label="Usuário da base de dados" />
-    <Input class="h-12" label="Porta da base de dados" disabled />
-  </div>
+  <ProgressLog
+    logs={[
+      "Iniciando extração...",
+      "Iniciando transformação...",
+      "Iniciando carga...",
+      "Migração finalizada",
+    ]}
+  />
 </div>
-
-<span class="flex justify-between items-baseline px-4">
-  <TextButton>
-    <FileCodeIcon class="size-5 mr-2" />
-    Editar DDL
-  </TextButton>
-
-  <TextButton onclick={() => goto(page.url.pathname + "/status")}>
-    Iniciar Migração
-    <ChevronRightIcon class="size-5" />
-  </TextButton>
-</span>

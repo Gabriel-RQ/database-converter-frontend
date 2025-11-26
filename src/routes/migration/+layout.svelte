@@ -5,12 +5,18 @@
   import type { LayoutProps } from "./$types";
   import { setContext } from "svelte";
   import { writable, type Writable } from "svelte/store";
+  import { page } from "$app/state";
 
-  let migrationStatus: Writable<EMigrationStatus> = writable("pending");
+  let migrationStatus: Writable<{ status: EMigrationStatus; id?: string }> =
+    writable({
+      status: "pending",
+    });
 
   setContext("migration:status", () => migrationStatus);
 
-  let { children, data }: LayoutProps = $props();
+  const migrationIdentifier = page.url.searchParams.get("identifier");
+
+  let { children }: LayoutProps = $props();
 </script>
 
 <section class="base-section">
@@ -20,9 +26,12 @@
         <ChevronLeftIcon class="size-8" />
         Início
       </TextButton>
-      <h2 class="title">Migração Teste ({data.id})</h2>
+      <h2 class="title">
+        Migração "{migrationIdentifier}" {$migrationStatus.id &&
+          `(${$migrationStatus.id})`}
+      </h2>
 
-      <StatusBadge status={$migrationStatus} class="ml-auto" />
+      <StatusBadge status={$migrationStatus.status} class="ml-auto" />
     </span>
 
     {@render children()}
