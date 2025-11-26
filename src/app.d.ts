@@ -11,24 +11,12 @@ declare global {
     driverClassName: string;
   };
 
-  type StartMigrationRequest = { name: string };
-
-  type StartExtractionRequest = {
-    id: string;
-    originConfig: JdbcConnectionConfig;
-  };
-
-  type StartTransformationRequest = {
-    id: string;
+  type StartMigrationRequest = {
+    name: string;
     target: string;
-  };
-
-  type StartLoadRequest = {
-    id: string;
+    originConfig: JdbcConnectionConfig;
     targetConfig: JdbcConnectionConfig;
   };
-
-  type StartValidationRequest = StartExtractionRequest & StartLoadRequest;
 
   type ScriptFileInfo = {
     filename: string;
@@ -36,6 +24,36 @@ declare global {
   };
 
   type UpdateScriptRequest = ScriptFileInfo[];
+
+  type EEtlStep =
+    | "START"
+    | "EXTRACTION_IN_PROGRESS"
+    | "EXTRACTION_FINISHED"
+    | "TRANSFORMATION_IN_PROGRESS"
+    | "TRANSFORMATION_FINISHED"
+    | "WAITING_FOR_LOAD_CONFIRMATION"
+    | "LOAD_IN_PROGRESS"
+    | "LOAD_FINISHED"
+    | "VALIDATION_IN_PROGRESS"
+    | "FINISHED"
+    | "ERROR";
+
+  type MigrationStatusResponse = {
+    id: string;
+    name: string;
+    step: EEtlStep;
+    message: string;
+    startedAt: string;
+    finishedAt?: string;
+    lastUpdatedAt?: string;
+  };
+
+  type SqlPageResponse = {
+    page: number;
+    size: number;
+    total: number;
+    files: ScriptFileInfo[];
+  };
 
   namespace App {
     // interface Error {}
