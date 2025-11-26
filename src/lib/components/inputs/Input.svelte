@@ -8,6 +8,7 @@
     class: className,
     label,
     type = "text",
+    value = $bindable(),
     ...restProps
   }: InputProps = $props();
   const id = $props.id();
@@ -20,5 +21,6 @@
   class="alt-background rounded-md w-full px-4 py-5 outline-primary disabled:opacity-10 disabled:bg-text {className}"
   {type}
   {id}
+  bind:value
   {...restProps}
 />

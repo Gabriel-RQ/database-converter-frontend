@@ -6,7 +6,7 @@
 </script>
 
 <button
-  class="p-3 bg-primary rounded-md base-border cursor-pointer hover:bg-secondary focus:bg-secondary transition-colors duration-200"
+  class="p-3 bg-primary rounded-md base-border cursor-pointer disabled:bg-text-dimmed hover:bg-secondary focus:bg-secondary transition-colors duration-200"
   {...props}
 >
   <ChevronRightIcon class="size-8 stroke-background" />
