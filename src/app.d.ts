@@ -1,7 +1,12 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 declare global {
-  type EMigrationStatus = "pending" | "processing" | "done";
+  type EMigrationStatus =
+    | "pending"
+    | "processing"
+    | "confirmation"
+    | "done"
+    | "error";
 
   type JdbcConnectionConfig = {
     name: string;
@@ -53,6 +58,12 @@ declare global {
     size: number;
     total: number;
     files: ScriptFileInfo[];
+  };
+
+  type ErrorResponse = {
+    status: number;
+    message: string;
+    path: string;
   };
 
   namespace App {
