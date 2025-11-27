@@ -11,3 +11,4 @@ export { default as StatusBadge } from "./info/StatusBadge.svelte";
 export { default as MigrationProgressBar } from "./info/MigrationProgressBar.svelte";
 export { default as ProgressBar } from "./info/ProgressBar.svelte";
 export { default as ProgressLog } from "./info/ProgressLog.svelte";
+export { default as MigrationStatusHeader } from "./info/MigrationStatusHeader.svelte";
