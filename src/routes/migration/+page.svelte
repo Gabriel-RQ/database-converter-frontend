@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    ArrowRightIcon,
-    FileCodeIcon,
-    ChevronRightIcon,
-  } from "@lucide/svelte";
+  import { ArrowRightIcon, ChevronRightIcon } from "@lucide/svelte";
   import { Input, TextButton } from "$lib/components";
   import SelectInput from "$lib/components/inputs/SelectInput.svelte";
   import { enhance } from "$app/forms";
@@ -97,12 +93,7 @@
   </div>
 </form>
 
-<span class="flex justify-end items-baseline px-4">
-  <!-- <TextButton>
-    <FileCodeIcon class="size-5 mr-2" />
-    Editar DDL
-  </TextButton> -->
-
+<span class="flex justify-end items-center px-4">
   <TextButton type="submit" form="migration-form">
     Iniciar Migração
     <ChevronRightIcon class="size-5" />

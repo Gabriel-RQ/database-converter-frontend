@@ -1,9 +1,10 @@
 import { getDriverClassName, getJdbcUrl } from "$lib/util";
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { Actions } from "./$types";
+import { startMigration } from "$lib/api";
 
 export const actions: Actions = {
-  default: async ({ request }) => {
+  default: async ({ request, fetch }) => {
     const data = Object.fromEntries(await request.formData()) as any;
 
     const requestObject = {
@@ -35,6 +36,13 @@ export const actions: Actions = {
       },
     } as StartMigrationRequest;
 
-    redirect(302, "/migration/7770c93e-046d-4186-af1b-e17750c8d669");
+    let response;
+    try {
+      response = await startMigration(fetch, requestObject);
+    } catch (err) {
+      error(500, (err as Error).message);
+    }
+
+    redirect(302, `/migration/${response.id}`);
   },
 };

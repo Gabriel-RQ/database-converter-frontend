@@ -13,7 +13,7 @@
 
 <Header />
 
-<main>
+<main class="overflow-y-hidden">
   {@render children()}
 </main>
 

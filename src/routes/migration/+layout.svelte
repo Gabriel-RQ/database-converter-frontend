@@ -20,9 +20,12 @@
 </script>
 
 <section class="base-section">
-  <div class="space-y-8 w-7/10">
+  <div class="space-y-8 w-7/10 overflow-y-hidden">
     <span class="inline-flex gap-9 w-full">
-      <TextButton onclick={() => goto("/")}>
+      <TextButton
+        onclick={() => goto("/")}
+        disabled={$migrationStatus.status === "processing"}
+      >
         <ChevronLeftIcon class="size-8" />
         Início
       </TextButton>

@@ -1,65 +1,144 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { MigrationProgressBar, ProgressLog } from "$lib/components";
-  import { CheckIcon, LoaderCircleIcon } from "@lucide/svelte";
+  import {
+    getSseEvents,
+    startExtraction,
+    startLoading,
+    startTransformation,
+    startValidation,
+  } from "$lib/api";
+  import {
+    MigrationProgressBar,
+    MigrationStatusHeader,
+    ProgressLog,
+    TextButton,
+  } from "$lib/components";
+  import {
+    parseMigrationLog,
+    parseMigrationStatusDescription,
+  } from "$lib/util";
+  import { ChevronRightIcon, FileCodeIcon } from "@lucide/svelte";
   import { getContext } from "svelte";
   import type { Writable } from "svelte/store";
 
-  let migrationStatus =
+  const migrationStatus =
     getContext<() => Writable<{ status: EMigrationStatus; id?: string }>>(
       "migration:status"
     )();
 
-  migrationStatus.update((v) => {
-    v.id = page.params.id;
-    return v;
+  let currentEventSource: EventSource | null = null;
+  let isWaitingConfirmation = $state(false);
+  let isExtractionStarted = false;
+
+  const migrationLogs: string[] = $state([]);
+  const progressLog = $state({
+    extractionProgress: 0,
+    transformationProgress: 0,
+    loadProgress: 0,
+    validationProgress: 0,
   });
 
-  setTimeout(
-    () =>
-      migrationStatus.update((v) => {
-        v.status = "processing";
-        return v;
-      }),
-    1000
-  );
-  setTimeout(
-    () =>
-      migrationStatus.update((v) => {
-        v.status = "done";
-        return v;
-      }),
-    5000
-  );
+  function confirmLoad() {
+    startLoading(fetch, page.params.id as string);
+    isWaitingConfirmation = false;
+  }
+
+  function orchestrate(id: string) {
+    if (currentEventSource) {
+      currentEventSource.close();
+    }
+
+    migrationLogs.length = 0;
+    isWaitingConfirmation = false;
+    isExtractionStarted = false;
+
+    migrationStatus.update((v) => ({
+      ...v,
+      id,
+    }));
+
+    const events = getSseEvents(id);
+    currentEventSource = events;
+
+    events.addEventListener("open", () => {
+      if (!isExtractionStarted) {
+        startExtraction(fetch, id);
+        isExtractionStarted = true;
+      }
+    });
+
+    events.addEventListener("error", () => events.close());
+
+    events.addEventListener("status", (event) => {
+      const status = JSON.parse(event.data) as MigrationStatusResponse;
+      const statusDescription = parseMigrationStatusDescription(status.step);
+      migrationStatus.update((v) => ({
+        ...v,
+        status: statusDescription,
+      }));
+
+      switch (status.step) {
+        case "EXTRACTION_FINISHED":
+          startTransformation(fetch, id);
+          progressLog.extractionProgress = 100;
+          break;
+        case "TRANSFORMATION_FINISHED":
+        case "WAITING_FOR_LOAD_CONFIRMATION":
+          isWaitingConfirmation = true;
+          progressLog.transformationProgress = 100;
+          break;
+        case "LOAD_FINISHED":
+          startValidation(fetch, id);
+          progressLog.loadProgress = 100;
+          break;
+        case "FINISHED":
+        case "ERROR":
+          progressLog.validationProgress = 100;
+          break;
+      }
+
+      migrationLogs.push(parseMigrationLog(status));
+    });
+
+    return () => {
+      events.close();
+      currentEventSource = null;
+    };
+  }
+
+  $effect(() => {
+    const id = page.params.id;
+    if (id === undefined) return;
+
+    return orchestrate(id);
+  });
 </script>
 
-<div class="card w-4/5 mx-auto">
-  <div
-    class="text-center space-y-3 mb-14"
-    class:text-accent={$migrationStatus.status !== "done"}
-    class:text-secondary={$migrationStatus.status === "done"}
-  >
-    {#if $migrationStatus.status !== "done"}
-      <LoaderCircleIcon
-        class="m-auto animate-spin size-22 stroke-1 transition-all"
-      />
-      <h3 class="font-bold text-xl transition-all">Migração em andamento</h3>
-      <p class="text-text">Você pode acompanhar o progresso abaixo</p>
-    {:else}
-      <CheckIcon class="m-auto size-22 stroke-1 transition-all" />
-      <h3 class="font-bold text-xl transition-all">Migração finalizada</h3>
-      <p class="text-text">Você pode conferir os <i>logs</i> abaixo</p>
-    {/if}
-  </div>
+<div class="card w-4/5 mx-auto overflow-y-auto">
+  <MigrationStatusHeader status={$migrationStatus.status} />
 
-  <MigrationProgressBar class="mb-8" />
-
-  <ProgressLog
-    logs={[
-      "Iniciando extração...",
-      "Iniciando transformação...",
-      "Iniciando carga...",
-      "Migração finalizada",
-    ]}
+  <MigrationProgressBar
+    class="mb-8"
+    {...progressLog}
+    status={$migrationStatus.status}
   />
+
+  <ProgressLog logs={migrationLogs} />
+
+  <span class="flex justify-between items-center px-4 mt-4">
+    <TextButton disabled={!isWaitingConfirmation}>
+      <FileCodeIcon class="size-5 mr-2" />
+      Editar DDL
+    </TextButton>
+
+    <TextButton
+      type="submit"
+      form="migration-form"
+      disabled={!isWaitingConfirmation}
+      onclick={confirmLoad}
+    >
+      Prosseguir
+      <ChevronRightIcon class="size-5" />
+    </TextButton>
+  </span>
 </div>
