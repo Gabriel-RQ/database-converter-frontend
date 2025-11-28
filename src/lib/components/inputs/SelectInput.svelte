@@ -4,7 +4,6 @@
     ChevronDownIcon,
     ChevronsUpDownIcon,
     ChevronUpIcon,
-    DatabaseIcon,
   } from "@lucide/svelte";
   import { Select, type WithoutChildren } from "bits-ui";
   import type { HTMLSelectAttributes } from "svelte/elements";
@@ -14,10 +13,16 @@
     label?: string;
   };
 
-  let { items, class: className, label, name }: SelectInputProps = $props();
+  let {
+    items,
+    class: className,
+    label,
+    name,
+    required,
+    value = $bindable(""),
+  }: SelectInputProps = $props();
 
   const id = $props.id();
-  let value = $state<string>("");
   const selectedLabel = $derived(
     value
       ? items.find((item) => item.value === value)?.label
@@ -33,6 +38,7 @@
   {items}
   onValueChange={(v) => (value = v)}
   name={name ?? undefined}
+  required={required ?? undefined}
 >
   <Select.Trigger
     class="alt-background rounded-md w-full px-4 py-5 outline-primary disabled:opacity-10 disabled:bg-text inline-flex items-center justify-between data-placeholder:text-text-dimmed {className}"

@@ -61,3 +61,29 @@ export function parseMigrationStatusDescription(
       return "error";
   }
 }
+
+export function getSgbdDefaults(sgbd: string) {
+  switch (sgbd) {
+    case "POSTGRES":
+      return {
+        user: "postgres",
+        password: "",
+        host: "localhost",
+        port: 5432,
+      };
+    case "FIREBIRD":
+      return {
+        user: "SYSDBA",
+        password: "masterkey",
+        host: "localhost",
+        port: null,
+      };
+    default:
+      return {
+        user: "",
+        password: "",
+        host: "",
+        port: null,
+      };
+  }
+}

@@ -1,14 +1,8 @@
 <script lang="ts">
   import { ArrowRightIcon, ChevronRightIcon } from "@lucide/svelte";
-  import { Input, TextButton } from "$lib/components";
-  import SelectInput from "$lib/components/inputs/SelectInput.svelte";
+  import { MigrationFormFields, TextButton } from "$lib/components";
   import { enhance } from "$app/forms";
   import { page } from "$app/state";
-
-  const sgbds = [
-    { value: "POSTGRES", label: "Postgres" },
-    { value: "FIREBIRD", label: "Firebird" },
-  ];
 
   const migrationIdentifier = page.url.searchParams.get("identifier");
 </script>
@@ -21,76 +15,11 @@
 >
   <input type="hidden" name="migrationIdentifier" value={migrationIdentifier} />
 
-  <div class="card space-y-3 flex-1">
-    <h3 class="title font-normal">Base de dados origem</h3>
-    <SelectInput class="h-12" label="SGBD" items={sgbds} name="originSgbd" />
-    <Input
-      class="h-12"
-      label="Nome/identificador da base de dados"
-      name="originDbname"
-      minlength={1}
-      value={migrationIdentifier}
-    />
-    <Input
-      class="h-12"
-      label="Senha da base de dados"
-      name="originDbpassword"
-      minlength={1}
-      type="password"
-    />
-    <Input
-      class="h-12"
-      label="Usuário da base de dados"
-      name="originDbuser"
-      minlength={1}
-    />
-    <Input
-      class="h-12"
-      label="Host da base de dados"
-      name="originDbhost"
-      value="localhost"
-    />
-    <Input class="h-12" label="Porta da base de dados" name="originDbport" />
-  </div>
+  <MigrationFormFields {migrationIdentifier} />
 
   <ArrowRightIcon class="stroke-primary size-16" />
 
-  <div class="card space-y-3 flex-1">
-    <h3 class="title font-normal">Base de dados destino</h3>
-    <SelectInput class="h-12" label="SGBD" items={sgbds} name="targetSgbd" />
-    <Input
-      class="h-12"
-      label="Nome/identificador da base de dados"
-      name="targetDbname"
-      minlength={1}
-      value={migrationIdentifier}
-    />
-    <Input
-      class="h-12"
-      label="Senha da base de dados"
-      name="targetDbpassword"
-      minlength={1}
-      type="password"
-    />
-    <Input
-      class="h-12"
-      label="Usuário da base de dados"
-      name="targetDbuser"
-      minlength={1}
-    />
-    <Input
-      class="h-12"
-      label="Host da base de dados"
-      name="targetDbhost"
-      value="localhost"
-    />
-    <Input
-      class="h-12"
-      label="Porta da base de dados"
-      name="targetDbport"
-      disabled
-    />
-  </div>
+  <MigrationFormFields {migrationIdentifier} />
 </form>
 
 <span class="flex justify-end items-center px-4">
