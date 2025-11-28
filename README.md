@@ -1,38 +1,43 @@
-# sv
+# Database Converter Frontend
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+**[English]**
 
-## Creating a project
+This repository contains the frontend implementation for the [Database Converter API](https://github.com/Gabriel-RQ/database-converter-backend). It's built with Sveltekit, Typescript and TailwindCSS.
 
-If you're seeing this, you've probably already done this step. Congrats!
+This project was first developed as part of my course completion paper.
 
-```sh
-# create a new project in the current directory
-npx sv create
+## How to run
 
-# create a new project in my-app
-npx sv create my-app
+1. Clone this repository:
+
+```bash
+git clone https://github.com/Gabriel-RQ/database-converter-frontend
 ```
 
-## Developing
+2. Ensure the API is running (documentation on the link provided above)
+3. Run the development server for the frontend:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+**[Português]**
 
-To create a production version of your app:
+Esse repositório contém a implementação do frontend para a [API de Conversão de Bases de dados](https://github.com/Gabriel-RQ/database-converter-backend). Utiliza Sveltekit, Typescript e TailwindCSS.
 
-```sh
-npm run build
+Esse projeto foi desenvolvido inicialmente como parte de meu Trabalho de Conclusão de Curso.
+
+## Como rodar
+
+1. Clone esse repositório:
+
+```bash
+git clone https://github.com/Gabriel-RQ/database-converter-frontend
 ```
 
-You can preview the production build with `npm run preview`.
+2. Garanta que a API está sendo executada (documentação no link provido acima)
+3. Execute o servidor de desenvolvimento do frontend:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```bash
+npm run dev
+```
