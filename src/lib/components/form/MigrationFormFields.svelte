@@ -5,6 +5,7 @@
 
   type MigrationFormFieldsProps = {
     migrationIdentifier: string | null;
+    namePrefix: string;
   };
 
   const sgbds = [
@@ -15,7 +16,7 @@
   let selectedSgbd = $state("");
   let selectedDefaults = $derived(getSgbdDefaults(selectedSgbd));
 
-  let { migrationIdentifier }: MigrationFormFieldsProps = $props();
+  let { migrationIdentifier, namePrefix }: MigrationFormFieldsProps = $props();
 </script>
 
 <div class="card space-y-3 flex-1">
@@ -24,13 +25,13 @@
     class="h-12"
     label="SGBD"
     items={sgbds}
-    name="originSgbd"
+    name="{namePrefix}Sgbd"
     bind:value={selectedSgbd}
   />
   <Input
     class="h-12"
     label="Nome/identificador da base de dados"
-    name="originDbname"
+    name="{namePrefix}Dbname"
     minlength={1}
     value={migrationIdentifier}
     required
@@ -38,7 +39,7 @@
   <Input
     class="h-12"
     label="Senha da base de dados"
-    name="originDbpassword"
+    name="{namePrefix}Dbpassword"
     minlength={1}
     type="password"
     value={selectedDefaults.password}
@@ -47,7 +48,7 @@
   <Input
     class="h-12"
     label="Usuário da base de dados"
-    name="originDbuser"
+    name="{namePrefix}Dbuser"
     minlength={1}
     value={selectedDefaults.user}
     required
@@ -55,14 +56,14 @@
   <Input
     class="h-12"
     label="Host da base de dados"
-    name="originDbhost"
+    name="{namePrefix}Dbhost"
     value={selectedDefaults.host}
     required
   />
   <Input
     class="h-12"
     label="Porta da base de dados"
-    name="originDbport"
+    name="{namePrefix}Dbport"
     value={selectedDefaults.port}
     disabled={!selectedDefaults.port}
     required

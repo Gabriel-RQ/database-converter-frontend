@@ -36,7 +36,7 @@
 <Select.Root
   type="single"
   {items}
-  onValueChange={(v) => (value = v)}
+  bind:value
   name={name ?? undefined}
   required={required ?? undefined}
 >

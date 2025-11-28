@@ -4,10 +4,10 @@
 </script>
 
 <header class="flex justify-between">
-  <div class="text-accent inline-flex items-center gap-3">
+  <a class="text-accent inline-flex items-center gap-3" href="/">
     <img src={favicon} alt="Representação gráfica de uma base de dados" />
     <h1 class="text-2xl font-bold">Database Converter</h1>
-  </div>
+  </a>
 
   <a
     href="https://github.com/Gabriel-RQ/database-converter-tool"

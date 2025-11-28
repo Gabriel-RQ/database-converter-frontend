@@ -47,7 +47,7 @@
     <h3 class="font-bold text-xl transition-all">
       Deseja continuar para a etapa de carga dos dados?
     </h3>
-    <p class="text-text">Você pode conferir e modifir o DDL antes</p>
+    <p class="text-text">Você pode conferir e modificar o DDL antes</p>
   {:else if status === "done"}
     <CheckIcon class="m-auto size-22 stroke-1 transition-all" />
     <h3 class="font-bold text-xl transition-all">Migração finalizada</h3>
