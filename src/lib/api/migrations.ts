@@ -118,3 +118,22 @@ export async function getDdlScripts(
 
   return responseData as SqlPageResponse;
 }
+
+export async function updateDdlScripts(
+  fetch: (input: URL | RequestInfo, init?: RequestInit) => Promise<Response>,
+  id: string,
+  data: ScriptFileInfo[]
+) {
+  const response = await fetch(PUBLIC_API_URL + "/migrations/" + id + "/sql", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const responseData = await response.json();
+    throw new Error(responseData.message);
+  }
+}
