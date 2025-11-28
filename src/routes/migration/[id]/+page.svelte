@@ -30,7 +30,6 @@
 
   let currentEventSource: EventSource | null = null;
   let isWaitingConfirmation = $state(false);
-  let isExtractionStarted = false;
 
   const migrationLogs: string[] = $state([]);
   const progressLog = $state({
@@ -52,7 +51,6 @@
 
     migrationLogs.length = 0;
     isWaitingConfirmation = false;
-    isExtractionStarted = false;
 
     migrationStatus.update((v) => ({
       ...v,
@@ -64,9 +62,8 @@
     currentEventSource = events;
 
     events.addEventListener("open", () => {
-      if (!isExtractionStarted) {
+      if (data.status.step === "START") {
         startExtraction(fetch, id);
-        isExtractionStarted = true;
       }
     });
 
@@ -97,6 +94,7 @@
         case "FINISHED":
         case "ERROR":
           progressLog.validationProgress = 100;
+          events.close();
           break;
       }
 
@@ -131,7 +129,7 @@
   <span class="flex justify-between items-center px-4 mt-4">
     <DDLDialog id={data.status.id}>
       {#snippet trigger({ props })}
-        <TextButton disabled={isWaitingConfirmation} {...props}>
+        <TextButton {...props} disabled={!isWaitingConfirmation}>
           <FileCodeIcon class="size-5 mr-2" />
           Editar DDL
         </TextButton>

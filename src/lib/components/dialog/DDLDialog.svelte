@@ -3,7 +3,7 @@
   import { Dialog, Separator } from "bits-ui";
   import type { Snippet } from "svelte";
   import { Pagination, TextButton } from "..";
-  import { getDdlScripts } from "$lib/api";
+  import { getDdlScripts, updateDdlScripts } from "$lib/api";
 
   type DDLDialogProps = {
     id: string;
@@ -11,6 +11,7 @@
   };
 
   let currentPage = $state(1);
+  const modified: ScriptFileInfo[] = $state([]);
 
   let { id, trigger }: DDLDialogProps = $props();
 </script>
@@ -45,7 +46,18 @@
               <p class="font-semibold text-lg text-center">{file.filename}</p>
               <textarea
                 class="w-full resize-none field-sizing-content outline-none"
-                spellcheck="false">{file.content}</textarea
+                spellcheck="false"
+                onchange={(event) => {
+                  const m = modified.find((f) => f.filename === file.filename);
+                  if (m) {
+                    m.content = event.currentTarget.value;
+                  } else {
+                    modified.push({
+                      ...file,
+                      content: event.currentTarget.value,
+                    });
+                  }
+                }}>{file.content}</textarea
               >
             </div>
           {/each}
@@ -59,7 +71,7 @@
         />
 
         <div class="flex items-center justify-end mt-4">
-          <Dialog.Close>
+          <Dialog.Close onclick={() => updateDdlScripts(fetch, id, modified)}>
             {#snippet child({ props })}
               <TextButton {...props}>Confirmar</TextButton>
             {/snippet}

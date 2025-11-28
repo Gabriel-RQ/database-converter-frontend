@@ -19,7 +19,7 @@
   let { children }: LayoutProps = $props();
 </script>
 
-<section class="base-section">
+<section class="base-section overflow-y-auto">
   <div class="space-y-8 w-7/10 overflow-y-hidden">
     <span class="inline-flex gap-9 w-full">
       <TextButton
