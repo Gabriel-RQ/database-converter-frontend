@@ -97,3 +97,24 @@ export async function getStatus(
 export function getSseEvents(id: string) {
   return new EventSource(`${PUBLIC_API_URL}/migrations/${id}/sse`);
 }
+
+export async function getDdlScripts(
+  fetch: (input: URL | RequestInfo, init?: RequestInit) => Promise<Response>,
+  id: string,
+  page: number = 0
+) {
+  const response = await fetch(
+    PUBLIC_API_URL + "/migrations/" + id + "/sql?page=" + page,
+    {
+      method: "GET",
+    }
+  );
+
+  const responseData = await response.json();
+
+  if (!response.ok) {
+    throw new Error(responseData.message);
+  }
+
+  return responseData as SqlPageResponse;
+}

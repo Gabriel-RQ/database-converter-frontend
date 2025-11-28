@@ -8,6 +8,7 @@
     startValidation,
   } from "$lib/api";
   import {
+    DDLDialog,
     MigrationProgressBar,
     MigrationStatusHeader,
     ProgressLog,
@@ -128,10 +129,14 @@
   <ProgressLog logs={migrationLogs} />
 
   <span class="flex justify-between items-center px-4 mt-4">
-    <TextButton disabled={!isWaitingConfirmation}>
-      <FileCodeIcon class="size-5 mr-2" />
-      Editar DDL
-    </TextButton>
+    <DDLDialog id={data.status.id}>
+      {#snippet trigger({ props })}
+        <TextButton disabled={isWaitingConfirmation} {...props}>
+          <FileCodeIcon class="size-5 mr-2" />
+          Editar DDL
+        </TextButton>
+      {/snippet}
+    </DDLDialog>
 
     <TextButton
       type="submit"
