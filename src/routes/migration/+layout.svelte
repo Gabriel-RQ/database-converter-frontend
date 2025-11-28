@@ -7,14 +7,14 @@
   import { writable, type Writable } from "svelte/store";
   import { page } from "$app/state";
 
-  let migrationStatus: Writable<{ status: EMigrationStatus; id?: string }> =
-    writable({
-      status: "pending",
-    });
+  let migrationStatus: Writable<MigrationStatusContext> = writable({
+    status: "pending",
+  });
 
   setContext("migration:status", () => migrationStatus);
 
-  const migrationIdentifier = page.url.searchParams.get("identifier");
+  const migrationIdentifier =
+    $migrationStatus.name ?? page.url.searchParams.get("identifier");
 
   let { children }: LayoutProps = $props();
 </script>

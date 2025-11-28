@@ -15,11 +15,11 @@
 >
   <input type="hidden" name="migrationIdentifier" value={migrationIdentifier} />
 
-  <MigrationFormFields {migrationIdentifier} />
+  <MigrationFormFields {migrationIdentifier} namePrefix="origin" />
 
   <ArrowRightIcon class="stroke-primary size-16" />
 
-  <MigrationFormFields {migrationIdentifier} />
+  <MigrationFormFields {migrationIdentifier} namePrefix="target" />
 </form>
 
 <span class="flex justify-end items-center px-4">

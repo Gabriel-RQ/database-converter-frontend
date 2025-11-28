@@ -81,7 +81,7 @@ export async function getStatus(
   const response = await fetch(
     PUBLIC_API_URL + "/migrations/" + id + "/status",
     {
-      method: "POST",
+      method: "GET",
     }
   );
 

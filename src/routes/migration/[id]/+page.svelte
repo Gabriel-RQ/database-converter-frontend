@@ -20,11 +20,12 @@
   import { ChevronRightIcon, FileCodeIcon } from "@lucide/svelte";
   import { getContext } from "svelte";
   import type { Writable } from "svelte/store";
+  import type { PageProps } from "./$types";
+
+  let { data }: PageProps = $props();
 
   const migrationStatus =
-    getContext<() => Writable<{ status: EMigrationStatus; id?: string }>>(
-      "migration:status"
-    )();
+    getContext<() => Writable<MigrationStatusContext>>("migration:status")();
 
   let currentEventSource: EventSource | null = null;
   let isWaitingConfirmation = $state(false);
@@ -55,6 +56,7 @@
     migrationStatus.update((v) => ({
       ...v,
       id,
+      name: data.status.name,
     }));
 
     const events = getSseEvents(id);
