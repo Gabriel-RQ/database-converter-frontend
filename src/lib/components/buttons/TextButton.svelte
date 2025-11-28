@@ -5,11 +5,11 @@
   type TextButtonProps = HTMLButtonAttributes & {
     children: Snippet<[]>;
   };
-  let { children, ...restProps }: TextButtonProps = $props();
+  let { children, class: className, ...restProps }: TextButtonProps = $props();
 </script>
 
 <button
-  class="text-primary text-xl inline-flex items-center cursor-pointer hover:text-secondary focus:text-secondary transition-colors duration-200 outline-primary disabled:text-text-dimmed"
+  class="text-primary text-xl inline-flex items-center cursor-pointer hover:text-secondary focus:text-secondary transition-colors duration-200 outline-primary disabled:text-text-dimmed {className}"
   {...restProps}
 >
   {@render children()}

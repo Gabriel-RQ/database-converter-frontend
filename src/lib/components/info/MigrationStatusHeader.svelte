@@ -15,7 +15,8 @@
 
 <div
   class="text-center space-y-3 mb-14"
-  class:text-text-dimmed={status === "pending" || status === "confirmation"}
+  class:text-text-dimmed={status === "pending"}
+  class:text-text={status === "confirmation"}
   class:text-accent={status === "processing"}
   class:text-error={status === "error"}
   class:text-secondary={status === "done"}

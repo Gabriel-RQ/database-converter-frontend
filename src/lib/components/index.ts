@@ -1,5 +1,6 @@
 export { default as Header } from "./structure/Header.svelte";
 export { default as Footer } from "./structure/Footer.svelte";
+export { default as Pagination } from "./structure/Pagination.svelte";
 
 export { default as Input } from "./inputs/Input.svelte";
 export { default as SelectInput } from "./inputs/SelectInput.svelte";
@@ -14,3 +15,5 @@ export { default as ProgressLog } from "./info/ProgressLog.svelte";
 export { default as MigrationStatusHeader } from "./info/MigrationStatusHeader.svelte";
 
 export { default as MigrationFormFields } from "./form/MigrationFormFields.svelte";
+
+export { default as DDLDialog } from "./dialog/DDLDialog.svelte";
