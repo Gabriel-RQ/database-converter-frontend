@@ -66,6 +66,12 @@ declare global {
     path: string;
   };
 
+  type MigrationStatusContext = {
+    status: EMigrationStatus;
+    id?: string;
+    name?: string;
+  };
+
   namespace App {
     // interface Error {}
     // interface Locals {}
