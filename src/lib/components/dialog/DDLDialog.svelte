@@ -27,7 +27,7 @@
     <Dialog.Overlay class="fixed inset-0 z-50 bg-black/80" />
 
     <Dialog.Content
-      class="card fixed left-1/2 top-1/2 -translate-1/2 z-50 h-fit w-2/5 min-w-[490px] max-h-[70dvh] overflow-hidden grid grid-rows-[auto_1fr_auto]"
+      class="card fixed left-1/2 top-1/2 -translate-1/2 z-50 h-fit w-[95dvw] md:w-2/5 md:min-w-[490px] max-h-[70dvh] overflow-hidden grid grid-rows-[auto_1fr_auto] grid-cols-1"
     >
       {#await getDdlScripts(fetch, id, currentPage - 1)}
         <div class="flex items-center justify-center flex-col">

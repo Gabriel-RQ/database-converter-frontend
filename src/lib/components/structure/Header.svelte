@@ -6,7 +6,7 @@
 <header class="flex justify-between">
   <a class="text-accent inline-flex items-center gap-3" href="/">
     <img src={favicon} alt="Representação gráfica de uma base de dados" />
-    <h1 class="text-2xl font-bold">Database Converter</h1>
+    <h1 class="text-xl md:text-2xl font-bold">Database Converter</h1>
   </a>
 
   <a

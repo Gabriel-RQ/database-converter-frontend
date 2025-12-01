@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { ArrowRightIcon, ChevronRightIcon } from "@lucide/svelte";
+  import {
+    ArrowDownIcon,
+    ArrowRightIcon,
+    ChevronRightIcon,
+  } from "@lucide/svelte";
   import { MigrationFormFields, TextButton } from "$lib/components";
   import { enhance } from "$app/forms";
   import { page } from "$app/state";
@@ -10,14 +14,15 @@
 <form
   method="post"
   use:enhance
-  class="flex justify-between items-center gap-8"
+  class="flex flex-col gap-2 justify-start items-center md:flex-row md:justify-between md:items-center md:gap-8"
   id="migration-form"
 >
   <input type="hidden" name="migrationIdentifier" value={migrationIdentifier} />
 
   <MigrationFormFields {migrationIdentifier} namePrefix="origin" />
 
-  <ArrowRightIcon class="stroke-primary size-16" />
+  <ArrowRightIcon class="stroke-primary size-16 hidden md:block" />
+  <ArrowDownIcon class="stroke-primary size-16 md:hidden block" />
 
   <MigrationFormFields {migrationIdentifier} namePrefix="target" />
 </form>

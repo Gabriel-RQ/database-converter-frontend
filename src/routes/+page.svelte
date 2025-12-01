@@ -5,8 +5,8 @@
   let name = $state("");
 </script>
 
-<section class="base-section">
-  <div class="size-1/3 space-y-6">
+<section class="base-section items-center">
+  <div class="md:size-1/3 space-y-6">
     <h2 class="title">Iniciar migração</h2>
     <p>
       Transfira dados entre diferentes Sistemas Gerenciadores de Bases de Dados

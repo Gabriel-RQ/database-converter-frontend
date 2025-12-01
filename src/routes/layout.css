@@ -21,8 +21,13 @@ body {
   font-size: 16px;
   grid-template-rows: auto 1fr auto;
   height: 100dvh;
-  padding: 40px 80px;
+  overflow-y: hidden;
+  padding: 16px;
   width: 100dvw;
+
+  @variant md {
+    padding: 40px 80px;
+  }
 }
 
 @utility title {
@@ -34,7 +39,7 @@ body {
 }
 
 @utility base-section {
-  @apply size-full flex items-center justify-center;
+  @apply size-full flex md:items-center md:justify-center;
 }
 
 @utility alt-background {

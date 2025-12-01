@@ -20,7 +20,7 @@
   }: ProgressBarProps = $props();
 </script>
 
-<div class="flex *:flex-1 gap-4 {className}">
+<div class="flex *:w-1/4 gap-1 md:gap-4 {className}">
   <ProgressBar label="Extração" progress={extractionProgress} {status} />
   <ProgressBar
     label="Transformação"

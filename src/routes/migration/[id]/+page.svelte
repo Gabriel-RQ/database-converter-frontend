@@ -121,7 +121,7 @@
   });
 </script>
 
-<div class="card w-4/5 mx-auto overflow-y-auto">
+<div class="card w-full md:w-4/5 mx-auto overflow-y-auto">
   <MigrationStatusHeader status={$migrationStatus.status} />
 
   <MigrationProgressBar
@@ -132,7 +132,7 @@
 
   <ProgressLog logs={migrationLogs} />
 
-  <span class="flex justify-between items-center px-4 mt-4">
+  <span class="flex justify-between items-center md:px-4 mt-4">
     <DDLDialog id={data.status.id}>
       {#snippet trigger({ props })}
         <TextButton {...props} disabled={!isWaitingConfirmation}>

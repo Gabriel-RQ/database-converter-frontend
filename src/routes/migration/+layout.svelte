@@ -19,9 +19,11 @@
   let { children }: LayoutProps = $props();
 </script>
 
-<section class="base-section overflow-y-auto">
-  <div class="space-y-8 w-7/10 overflow-y-hidden">
-    <span class="inline-flex gap-9 w-full">
+<section class="base-section py-4 md:py-0">
+  <div class="space-y-8 w-full md:w-7/10 overflow-y-auto">
+    <span
+      class="flex flex-col md:inline-flex md:flex-row gap-2 md:gap-9 w-full"
+    >
       <TextButton
         onclick={() => goto("/")}
         disabled={$migrationStatus.status === "processing"}

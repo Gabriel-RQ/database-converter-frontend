@@ -27,7 +27,9 @@
   class:text-secondary={status === "done"}
   class:text-error={status === "error"}
 >
-  <span {id} class="text-center font-semibold text-current text-base"
+  <span
+    {id}
+    class="text-center font-semibold text-current text-sm md:text-base truncate"
     >{label}</span
   >
 
