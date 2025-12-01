@@ -67,7 +67,13 @@
       }
     });
 
-    events.addEventListener("error", () => events.close());
+    events.addEventListener("error", () => {
+      events.close();
+      migrationStatus.update((v) => ({
+        ...v,
+        status: "error",
+      }));
+    });
 
     events.addEventListener("status", (event) => {
       const status = JSON.parse(event.data) as MigrationStatusResponse;
