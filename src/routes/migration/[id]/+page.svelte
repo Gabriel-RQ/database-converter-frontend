@@ -67,13 +67,21 @@
       }
     });
 
-    events.addEventListener("error", () => {
+    const errorHandler = () => {
       events.close();
       migrationStatus.update((v) => ({
         ...v,
         status: "error",
       }));
+      isWaitingConfirmation = false;
+    };
+
+    events.addEventListener("shutdown", (event) => {
+      errorHandler();
+      migrationLogs.push(event.data);
     });
+
+    events.addEventListener("error", errorHandler);
 
     events.addEventListener("status", (event) => {
       const status = JSON.parse(event.data) as MigrationStatusResponse;
