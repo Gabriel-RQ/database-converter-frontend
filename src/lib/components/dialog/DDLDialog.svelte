@@ -73,7 +73,9 @@
         <div class="flex items-center justify-end mt-4">
           <Dialog.Close onclick={() => updateDdlScripts(fetch, id, modified)}>
             {#snippet child({ props })}
-              <TextButton {...props}>Confirmar</TextButton>
+              <TextButton {...props} disabled={modified.length === 0}
+                >Confirmar</TextButton
+              >
             {/snippet}
           </Dialog.Close>
         </div>

@@ -23,9 +23,9 @@
 <div
   class="flex flex-col gap-1"
   class:text-accent={progress > 0 && status !== "error"}
-  class:text-text-dimmed={progress === 0 && status !== "error"}
+  class:text-text-dimmed={progress === 0}
   class:text-secondary={status === "done"}
-  class:text-error={status === "error"}
+  class:text-error={progress > 0 && status === "error"}
 >
   <span
     {id}
