@@ -106,8 +106,8 @@
           progressLog.loadProgress = 100;
           break;
         case "FINISHED":
-        case "ERROR":
           progressLog.validationProgress = 100;
+        case "ERROR":
           events.close();
           break;
       }

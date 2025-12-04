@@ -19,7 +19,7 @@ export function getMigrationStepMessage(step: EEtlStep, message?: string) {
     case "VALIDATION_IN_PROGRESS":
       return "Executando validação...";
     case "FINISHED":
-      return `Migração finalizada${message ? ". Detalhes: " + message : ""}`;
+      return `Migração finalizada${message ? ". Detalhes:\n" + message : ""}`;
     case "ERROR":
       return `Erro no processo de migração. Detalhes:\n${message}`;
   }

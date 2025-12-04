@@ -13,18 +13,20 @@
       (SGBDs) de maneira automatizada.
     </p>
 
-    <span class="h-16 gap-4 flex">
+    <form
+      class="h-16 gap-4 flex"
+      onsubmit={(event) => {
+        event.preventDefault();
+        goto(`/migration?identifier=${name}`);
+      }}
+    >
       <Input
         placeholder="Identificador"
         name="identifier"
         minlength={1}
         bind:value={name}
       />
-      <ProceedButton
-        type="submit"
-        onclick={() => goto(`/migration?identifier=${name}`)}
-        disabled={name.length === 0}
-      />
-    </span>
+      <ProceedButton type="submit" disabled={name.length === 0} />
+    </form>
   </div>
 </section>

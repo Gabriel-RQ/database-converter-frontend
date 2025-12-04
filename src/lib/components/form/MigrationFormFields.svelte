@@ -66,6 +66,7 @@
     name="{namePrefix}Dbport"
     value={selectedDefaults.port}
     disabled={!selectedDefaults.port}
+    type="number"
     required
   />
 </div>
