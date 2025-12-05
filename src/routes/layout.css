@@ -8,8 +8,11 @@
   --color-accent: #ff9f1c;
   --color-text: #343a40;
   --color-error: #e63946;
+  --color-border: #e6ebef;
   --color-text-dimmed: color-mix(in oklab, #343a40 50%, transparent);
   --font-inconsolata: "Inconsolata", monospace;
+  --shadow-base: color-mix(in srgb, var(--color-primary), transparent 94%) 0 4px
+    4px 0;
 }
 
 body {
@@ -35,7 +38,7 @@ body {
 }
 
 @utility base-border {
-  border: solid 1px #e6ebef;
+  @apply border border-border;
 }
 
 @utility base-section {
@@ -47,7 +50,5 @@ body {
 }
 
 @utility card {
-  box-shadow: color-mix(in srgb, var(--color-primary), transparent 94%) 0 4px
-    4px 0;
-  @apply alt-background rounded-md p-6 h-full;
+  @apply alt-background rounded-md p-6 h-full shadow-base;
 }
