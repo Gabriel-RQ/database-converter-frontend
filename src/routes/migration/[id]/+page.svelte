@@ -30,6 +30,7 @@
 
   let currentEventSource: EventSource | null = null;
   let isWaitingConfirmation = $state(false);
+  const isAutoMigration = "true" === page.url.searchParams.get("auto");
 
   const migrationLogs: string[] = $state([]);
   const progressLog = $state({
@@ -98,7 +99,11 @@
           break;
         case "TRANSFORMATION_FINISHED":
         case "WAITING_FOR_LOAD_CONFIRMATION":
-          isWaitingConfirmation = true;
+          if (isAutoMigration) {
+            confirmLoad();
+          } else {
+            isWaitingConfirmation = true;
+          }
           progressLog.transformationProgress = 100;
           break;
         case "LOAD_FINISHED":

@@ -4,11 +4,17 @@
     ArrowRightIcon,
     ChevronRightIcon,
   } from "@lucide/svelte";
-  import { MigrationFormFields, TextButton } from "$lib/components";
+  import {
+    Checkbox,
+    MigrationFormFields,
+    TextButton,
+    Tooltip,
+  } from "$lib/components";
   import { enhance } from "$app/forms";
   import { page } from "$app/state";
 
   const migrationIdentifier = page.url.searchParams.get("identifier");
+  let isAutoMigration = $state(false);
 </script>
 
 <form
@@ -18,6 +24,7 @@
   id="migration-form"
 >
   <input type="hidden" name="migrationIdentifier" value={migrationIdentifier} />
+  <input type="hidden" name="autoMigration" value={isAutoMigration} />
 
   <MigrationFormFields {migrationIdentifier} namePrefix="origin" />
 
@@ -27,7 +34,14 @@
   <MigrationFormFields {migrationIdentifier} namePrefix="target" />
 </form>
 
-<span class="flex justify-end items-center px-4">
+<span class="flex justify-end items-center px-4 gap-x-4">
+  <span class="inline-flex gap-1">
+    <Checkbox label="Migração automatizada" bind:checked={isAutoMigration} />
+    <Tooltip
+      content="Na migração automatizada a confirmação do usuário para a carga dos dados não será solicitada."
+    />
+  </span>
+
   <TextButton type="submit" form="migration-form">
     Iniciar Migração
     <ChevronRightIcon class="size-5" />

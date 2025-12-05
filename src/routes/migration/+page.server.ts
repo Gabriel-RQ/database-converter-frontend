@@ -43,6 +43,6 @@ export const actions: Actions = {
       error(500, (err as Error).message);
     }
 
-    redirect(302, `/migration/${response.id}`);
+    redirect(302, `/migration/${response.id}?auto=${data.autoMigration}`);
   },
 };
