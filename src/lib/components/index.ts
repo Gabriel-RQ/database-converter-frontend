@@ -4,6 +4,7 @@ export { default as Pagination } from "./structure/Pagination.svelte";
 
 export { default as Input } from "./inputs/Input.svelte";
 export { default as SelectInput } from "./inputs/SelectInput.svelte";
+export { default as Checkbox } from "./inputs/Checkbox.svelte";
 
 export { default as ProceedButton } from "./buttons/ProceedButton.svelte";
 export { default as TextButton } from "./buttons/TextButton.svelte";
@@ -13,6 +14,7 @@ export { default as MigrationProgressBar } from "./info/MigrationProgressBar.sve
 export { default as ProgressBar } from "./info/ProgressBar.svelte";
 export { default as ProgressLog } from "./info/ProgressLog.svelte";
 export { default as MigrationStatusHeader } from "./info/MigrationStatusHeader.svelte";
+export { default as Tooltip } from "./info/Tooltip.svelte";
 
 export { default as MigrationFormFields } from "./form/MigrationFormFields.svelte";
 
