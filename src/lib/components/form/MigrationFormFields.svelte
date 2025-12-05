@@ -27,6 +27,7 @@
     items={sgbds}
     name="{namePrefix}Sgbd"
     bind:value={selectedSgbd}
+    required
   />
   <Input
     class="h-12"

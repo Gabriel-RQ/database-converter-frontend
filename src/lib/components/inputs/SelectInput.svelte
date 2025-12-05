@@ -39,6 +39,7 @@
   bind:value
   name={name ?? undefined}
   required={required ?? undefined}
+  loop={true}
 >
   <Select.Trigger
     class="alt-background rounded-md w-full px-4 py-5 outline-primary disabled:opacity-10 disabled:bg-text inline-flex items-center justify-between data-placeholder:text-text-dimmed {className}"
