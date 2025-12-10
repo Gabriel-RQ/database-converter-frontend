@@ -1,4 +1,11 @@
-export function getMigrationStepMessage(step: EEtlStep, message?: string) {
+import { parseMinuteString } from "./util";
+
+export function getMigrationStepMessage({
+  step,
+  message,
+  startedAt,
+  finishedAt,
+}: MigrationStatusResponse) {
   switch (step) {
     case "START":
       return "Iniciando migração...";
@@ -19,25 +26,28 @@ export function getMigrationStepMessage(step: EEtlStep, message?: string) {
     case "VALIDATION_IN_PROGRESS":
       return "Executando validação...";
     case "FINISHED":
-      return `Migração finalizada${message ? ". Detalhes:\n" + message : ""}`;
+      const durationInMs =
+        new Date(finishedAt!).getTime() - new Date(startedAt).getTime();
+      return `Migração finalizada em ${parseMinuteString(durationInMs)}${
+        message ? ". Detalhes:\n" + message : ""
+      }`;
     case "ERROR":
       return `Erro no processo de migração. Detalhes:\n${message}`;
   }
 }
 
 export function parseMigrationLog(status: MigrationStatusResponse) {
-  const d = new Date(status.lastUpdatedAt as string).toLocaleDateString(
-    "pt-BR",
-    {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    }
-  );
-  return `${d} - ${getMigrationStepMessage(status.step, status.message)}`;
+  const timeOfStatus = new Date(
+    status.lastUpdatedAt as string
+  ).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  return `${timeOfStatus} - ${getMigrationStepMessage(status)}`;
 }
 
 export function parseMigrationStatusDescription(
