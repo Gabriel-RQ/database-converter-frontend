@@ -43,6 +43,7 @@
 >
   <Select.Trigger
     class="alt-background rounded-md w-full px-4 py-5 outline-primary disabled:opacity-10 disabled:bg-text inline-flex items-center justify-between data-placeholder:text-text-dimmed {className}"
+    aria-label="Escolha o SGBD"
     {id}
   >
     {selectedLabel}
@@ -59,7 +60,7 @@
       </Select.ScrollUpButton>
 
       <Select.Viewport>
-        {#each items as item}
+        {#each items as item, i (i + item.value)}
           <Select.Item
             value={item.value}
             label={item.label}

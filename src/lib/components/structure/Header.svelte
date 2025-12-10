@@ -10,7 +10,7 @@
   </a>
 
   <a
-    href="https://github.com/Gabriel-RQ/database-converter-tool"
+    href="https://github.com/Gabriel-RQ/database-converter-backend"
     target="_blank"
     rel="noreferrer"
   >
