@@ -1,10 +1,6 @@
-import { render, screen, cleanup } from "@testing-library/svelte";
-import { describe, it, expect, afterEach } from "vitest";
+import { render, screen } from "@testing-library/svelte";
+import { describe, it, expect } from "vitest";
 import StatusBadge from "./StatusBadge.svelte";
-
-afterEach(() => {
-  cleanup();
-});
 
 describe("Componente: StatusBadge", () => {
   it('deve mostrar "Pendente" para status "pending"', () => {

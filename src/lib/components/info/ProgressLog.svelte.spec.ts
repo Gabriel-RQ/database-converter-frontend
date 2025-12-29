@@ -1,10 +1,6 @@
-import { render, screen, cleanup } from "@testing-library/svelte";
-import { describe, it, expect, afterEach } from "vitest";
+import { render, screen } from "@testing-library/svelte";
+import { describe, it, expect } from "vitest";
 import ProgressLog from "./ProgressLog.svelte";
-
-afterEach(() => {
-  cleanup();
-});
 
 describe("Componente: ProgressLog", () => {
   it("deve renderizar lista de logs corretamente", () => {

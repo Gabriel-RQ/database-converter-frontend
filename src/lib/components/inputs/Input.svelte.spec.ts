@@ -1,10 +1,6 @@
-import { render, screen, cleanup } from "@testing-library/svelte";
-import { describe, it, expect, afterEach } from "vitest";
+import { render, screen } from "@testing-library/svelte";
+import { describe, it, expect } from "vitest";
 import Input from "./Input.svelte";
-
-afterEach(() => {
-  cleanup();
-});
 
 describe("Componente: Input", () => {
   it("deve renderizar com label e atributos corretos", () => {
