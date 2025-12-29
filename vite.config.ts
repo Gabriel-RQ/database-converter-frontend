@@ -1,40 +1,11 @@
 import { defineConfig } from "vitest/config";
 import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
+import { svelteTesting } from "@testing-library/svelte/vite";
 
 export default defineConfig({
-  plugins: [tailwindcss(), sveltekit()],
-
+  plugins: [tailwindcss(), sveltekit(), svelteTesting()],
   test: {
-    expect: { requireAssertions: true },
-    projects: [
-      {
-        extends: "./vite.config.ts",
-
-        test: {
-          name: "server",
-          environment: "node",
-          include: ["src/**/*.{test,spec}.{js,ts}"],
-          exclude: ["src/**/*.svelte.{test,spec}.{js,ts}"],
-        },
-      },
-
-      {
-        extends: "./vite.config.ts",
-
-        test: {
-          name: "client",
-
-          environment: "jsdom",
-          include: ["src/**/*.svelte.{test,spec}.{js,ts}"],
-          exclude: ["src/lib/server/**"],
-        },
-      },
-    ],
+    environment: "jsdom",
   },
-  resolve: process.env.VITEST
-    ? {
-        conditions: ["browser"],
-      }
-    : undefined,
 });
