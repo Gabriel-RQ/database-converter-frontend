@@ -45,3 +45,9 @@ git clone https://github.com/Gabriel-RQ/database-converter-frontend
 ```bash
 npm run dev
 ```
+
+# Preview
+
+https://github.com/user-attachments/assets/670eaf73-e468-46c3-b092-73bfc85f5265
+
+
